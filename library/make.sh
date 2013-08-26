@@ -99,7 +99,7 @@ do
 			echo -n "\"aperture\":`echo -e "scale=1\n"$(echo "$information" | grep "Exif.Photo.FNumber" | sed 's/^[^ ]*\s*//') | bc`," >> "$indexName.tmp"
 			echo -n "\"iso\":$(echo "$information" | grep "Exif.Photo.ISOSpeedRatings" | sed 's/^[^ ]*\s*//')," >> "$indexName.tmp"
 			flash="true"
-			if [ "$(echo "$information" | grep "Exif.Photo.Flash" | sed 's/^[^ ]*\s*//')" = "16" ]
+			if [ "$(echo "$information" | grep "Exif.Photo.Flash " | sed 's/^[^ ]*\s*//')" = "16" ]
 			then
 				flash="false"
 			fi
