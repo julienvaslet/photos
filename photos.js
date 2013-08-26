@@ -487,6 +487,7 @@ jQuery( function()
 {
 	$(window).on( "hashchange", function()
 	{
+		$("body").removeClass( "loading" );
 		router( window.location.hash.length > 1 ? window.location.hash.substring( 1 ) : "" );
 	} );
 
