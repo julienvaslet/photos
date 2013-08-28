@@ -7,7 +7,7 @@ var currentAlbum = null;
 var libraryPath = "/library";
 var databasePath = libraryPath + "/database";
 var imagesPath = libraryPath + "/photos";
-var albumSeparator = "|"
+var albumSeparator = "/"
 var language = {
 	"date_format": "%d %M %Y",
 	"datetime_format": "%d %M %Y %H:%i",
@@ -119,12 +119,12 @@ var diacriticsMap = [
 
 function getAlbumUri( name )
 {
-	return "#" + name;
+	return "#" + encodeURIComponent( name );
 }
 
 function getImageUri( albumName, image )
 {
-	return "#" + albumName + albumSeparator + image;
+	return "#" + encodeURIComponent( albumName + albumSeparator + image );
 }
 
 function getAlbumDatabasePath( albumName )
@@ -132,12 +132,12 @@ function getAlbumDatabasePath( albumName )
 	albumName = albumName.toLowerCase().replace( / /g, "_" );
 	for( var i = 0 ; i < diacriticsMap.length ; i++ )
 		albumName = albumName.replace( diacriticsMap[i].letters, diacriticsMap[i].base );
-	return databasePath + "/" + albumName + ".json";
+	return databasePath + "/" + encodeURI( albumName ) + ".json";
 }
 
 function getImagePath( albumName, image )
 {
-	return imagesPath + "/" + albumName + "/" + image;
+	return imagesPath + "/" + encodeURI( albumName ) + "/" + encodeURI( image );
 }
 
 function formatDate( date, format )
@@ -488,7 +488,7 @@ jQuery( function()
 	$(window).on( "hashchange", function()
 	{
 		$("body").removeClass( "loading" );
-		router( window.location.hash.length > 1 ? window.location.hash.substring( 1 ) : "" );
+		router( window.location.hash.length > 1 ? decodeURIComponent( window.location.hash.substring( 1 ) ) : "" );
 	} );
 
 	$(window).on( "resize", function()
